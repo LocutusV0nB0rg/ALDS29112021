@@ -50,4 +50,16 @@ public class Tree {
                 getNumOfNodesHelper(startingNode.getLeftChild()) +
                 1;
     }
+
+    public int getNumberOfLeaves() {
+        return getNumberOfLeavesHelper(root);
+    }
+
+    private int getNumberOfLeavesHelper(TreeNode startingNode) {
+        if (startingNode == null) return 0;
+        if (startingNode.getLeftChild() == null && startingNode.getRightChild() == null) return 1;
+
+        return getNumberOfLeavesHelper(startingNode.getLeftChild()) +
+                getNumberOfLeavesHelper(startingNode.getRightChild());
+    }
 }
