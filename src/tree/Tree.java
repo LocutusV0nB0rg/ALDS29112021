@@ -62,4 +62,17 @@ public class Tree {
         return getNumberOfLeavesHelper(startingNode.getLeftChild()) +
                 getNumberOfLeavesHelper(startingNode.getRightChild());
     }
+
+    public int getPathLength() {
+        return getPathLengthHelper(root, 0);
+    }
+
+    private int getPathLengthHelper(TreeNode startingNode, int level) {
+        if (startingNode == null) return 0;
+
+        int leftPathLength = getPathLengthHelper(startingNode.getLeftChild(), level + 1);
+        int rightPathLength = getPathLengthHelper(startingNode.getRightChild(), level + 1);
+
+        return level + leftPathLength + rightPathLength;
+    }
 }
