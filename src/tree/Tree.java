@@ -25,4 +25,29 @@ public class Tree {
     public Tree(TreeNode root) {
         this.root = root;
     }
+
+    public int getHeight() {
+        return getHeightHelper(root);
+    }
+
+    private int getHeightHelper(TreeNode startingNode) {
+        if (startingNode == null) return 0;
+
+        int heightLeft = getHeightHelper(startingNode.getLeftChild());
+        int heightRight = getHeightHelper(startingNode.getRightChild());
+
+        return Math.max(heightLeft, heightRight) + 1;
+    }
+
+    public int getNumberOfNodes() {
+        return getNumOfNodesHelper(root);
+    }
+
+    private int getNumOfNodesHelper(TreeNode startingNode) {
+        if (startingNode == null) return 0;
+
+        return getNumOfNodesHelper(startingNode.getRightChild()) +
+                getNumOfNodesHelper(startingNode.getLeftChild()) +
+                1;
+    }
 }
