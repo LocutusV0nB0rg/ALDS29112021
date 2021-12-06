@@ -8,5 +8,7 @@ public class Main {
         System.out.println("tree.getNumberOfNodes() = " + tree.getNumberOfNodes());
         System.out.println("tree.getNumberOfLeaves() = " + tree.getNumberOfLeaves());
         System.out.println("tree.getPathLength() = " + tree.getPathLength());
+
+        tree.printWlr();
     }
 }

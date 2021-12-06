@@ -10,6 +10,11 @@ public class TreeNode {
         this.key = key;
     }
 
+    @Override
+    public String toString() {
+        return String.valueOf(key);
+    }
+
     public int getKey() {
         return key;
     }

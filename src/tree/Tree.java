@@ -22,6 +22,22 @@ public class Tree {
         this.root = root;
     }
 
+
+    public void printWlr() {
+        printWlrHelper(root);
+    }
+
+    private void printWlrHelper(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+
+        System.out.println(root.getKey());
+
+        printWlrHelper(root.getLeftChild());
+        printWlrHelper(root.getRightChild());
+    }
+
     public Tree(TreeNode root) {
         this.root = root;
     }
@@ -70,9 +86,21 @@ public class Tree {
     private int getPathLengthHelper(TreeNode startingNode, int level) {
         if (startingNode == null) return 0;
 
-        int leftPathLength = getPathLengthHelper(startingNode.getLeftChild(), level + 1);
-        int rightPathLength = getPathLengthHelper(startingNode.getRightChild(), level + 1);
-
-        return level + leftPathLength + rightPathLength;
+        return getPathLengthHelper(startingNode.getLeftChild(), level + 1) +
+                getPathLengthHelper(startingNode.getRightChild(), level + 1) +
+                level;
     }
+
+    /*public boolean isStrict() {
+        return isStrictHelper(root);
+    }*/
+
+    /*private boolean isStrictHelper(TreeNode startingNode) {
+        if (startingNode == null) return true;
+        if (isStrictHelper(startingNode.getLeftChild()) == null ^ isStrictHelper(startingNode.getRightChild()) == null) {
+            return false;
+        }
+
+        return true;
+    }*/
 }
