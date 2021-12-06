@@ -22,6 +22,37 @@ public class Tree {
         this.root = root;
     }
 
+    public void printLrw() {
+        printLrwHelper(root);
+    }
+
+    private void printLrwHelper(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+
+        printLrwHelper(root.getLeftChild());
+        printLrwHelper(root.getRightChild());
+
+        System.out.println(root.getKey());
+    }
+
+    public void printLwr() {
+        printLwrHelper(root);
+    }
+
+    private void printLwrHelper(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+
+        printLwrHelper(root.getLeftChild());
+
+        System.out.println(root.getKey());
+
+        printLwrHelper(root.getRightChild());
+    }
+
 
     public void printWlr() {
         printWlrHelper(root);
