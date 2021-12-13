@@ -123,8 +123,8 @@ public class Tree {
     private int getHeightHelper(TreeNode startingNode) {
         if (startingNode == null) return 0;
 
-        int heightLeft = getHeightHelper(startingNode.getLeftChild());
-        int heightRight = getHeightHelper(startingNode.getRightChild());
+        final int heightLeft = getHeightHelper(startingNode.getLeftChild());
+        final int heightRight = getHeightHelper(startingNode.getRightChild());
 
         return Math.max(heightLeft, heightRight) + 1;
     }
@@ -148,8 +148,8 @@ public class Tree {
         if (startingNode.getKey() < min || startingNode.getKey() > max)
             return false;
 
-        return isBinarySearchTree(root.getLeftChild(), min, startingNode.getKey() - 1) &&
-                isBinarySearchTree(root.getRightChild(), startingNode.getKey() + 1, max);
+        return isBinarySearchTree(startingNode.getLeftChild(), min, startingNode.getKey() - 1) &&
+                isBinarySearchTree(startingNode.getRightChild(), startingNode.getKey() + 1, max);
     }
 
 }
