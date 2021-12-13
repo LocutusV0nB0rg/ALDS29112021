@@ -1,5 +1,8 @@
 package tree;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Tree {
     private final TreeNode root;
 
@@ -77,15 +80,6 @@ public class Tree {
         return getHeightHelper(root);
     }
 
-    private int getHeightHelper(TreeNode startingNode) {
-        if (startingNode == null) return 0;
-
-        int heightLeft = getHeightHelper(startingNode.getLeftChild());
-        int heightRight = getHeightHelper(startingNode.getRightChild());
-
-        return Math.max(heightLeft, heightRight) + 1;
-    }
-
     public int getNumberOfNodes() {
         return getNumOfNodesHelper(root);
     }
@@ -122,16 +116,40 @@ public class Tree {
                 level;
     }
 
-    /*public boolean isStrict() {
-        return isStrictHelper(root);
-    }*/
+    public boolean isAVLTree() {
+        return isBalanced(this.root) && isBinarySearchTree(this.root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
 
-    /*private boolean isStrictHelper(TreeNode startingNode) {
-        if (startingNode == null) return true;
-        if (isStrictHelper(startingNode.getLeftChild()) == null ^ isStrictHelper(startingNode.getRightChild()) == null) {
+    private int getHeightHelper(TreeNode startingNode) {
+        if (startingNode == null) return 0;
+
+        int heightLeft = getHeightHelper(startingNode.getLeftChild());
+        int heightRight = getHeightHelper(startingNode.getRightChild());
+
+        return Math.max(heightLeft, heightRight) + 1;
+    }
+
+    private boolean isBalanced(TreeNode startingNode) {
+        if (startingNode == null)
+            return true;
+
+        final int leftHeight = getHeightHelper(startingNode.getLeftChild());
+        final int rightHeight = getHeightHelper(startingNode.getRightChild());
+
+        return Math.abs(leftHeight - rightHeight) <= 1 &&
+                isBalanced(startingNode.getLeftChild()) &&
+                isBalanced(startingNode.getRightChild());
+    }
+
+    private boolean isBinarySearchTree(TreeNode startingNode, int min, int max) {
+        if (startingNode == null)
+            return true;
+
+        if (startingNode.getKey() < min || startingNode.getKey() > max)
             return false;
-        }
 
-        return true;
-    }*/
+        return isBinarySearchTree(root.getLeftChild(), min, startingNode.getKey() - 1) &&
+                isBinarySearchTree(root.getRightChild(), startingNode.getKey() + 1, max);
+    }
+
 }
