@@ -1,28 +1,26 @@
 package tree;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Tree {
-    private final TreeNode root;
+    private TreeNode root;
 
+    // Kommentar von Robert: Chantal bekommt viel Kindergeld!
     public Tree() {
-        TreeNode root = new TreeNode(0);
-        root.setLeftChild(new TreeNode(1));
-        root.setRightChild(new TreeNode(2));
+        TreeNode chantal = new TreeNode(0);
+        chantal.setLeftChild(new TreeNode(1));
+        chantal.setRightChild(new TreeNode(2));
 
-        root.getLeftChild().setLeftChild(new TreeNode(3));
-        root.getLeftChild().setRightChild(new TreeNode(4));
+        chantal.getLeftChild().setLeftChild(new TreeNode(3));
+        chantal.getLeftChild().setRightChild(new TreeNode(4));
 
-        root.getRightChild().setRightChild(new TreeNode(5));
+        chantal.getRightChild().setRightChild(new TreeNode(5));
 
-        root.getLeftChild().getLeftChild().setLeftChild(new TreeNode(6));
-        root.getLeftChild().getLeftChild().setRightChild(new TreeNode(7));
+        chantal.getLeftChild().getLeftChild().setLeftChild(new TreeNode(6));
+        chantal.getLeftChild().getLeftChild().setRightChild(new TreeNode(7));
 
-        root.getLeftChild().getRightChild().setRightChild(new TreeNode(8));
+        chantal.getLeftChild().getRightChild().setRightChild(new TreeNode(8));
 
-        root.getRightChild().getRightChild().setLeftChild(new TreeNode(9));
-        this.root = root;
+        chantal.getRightChild().getRightChild().setLeftChild(new TreeNode(9));
+        this.root = chantal;
     }
 
     public void printLrw() {
@@ -152,4 +150,30 @@ public class Tree {
                 isBinarySearchTree(startingNode.getRightChild(), startingNode.getKey() + 1, max);
     }
 
+    public void addNodeToBinarySearchTree(TreeNode nodeToAdd) {
+        if (!isAVLTree()) throw new RuntimeException("No AVL Tree");
+
+        if (this.root == null) {
+            this.root = nodeToAdd;
+            return;
+        }
+
+        sortIntoSubTree(this.root, nodeToAdd);
+    }
+
+    public void sortIntoSubTree(TreeNode currentRoot, TreeNode nodeToAdd) {
+        if (currentRoot.getKey() > nodeToAdd.getKey()) {
+            if (currentRoot.getLeftChild() == null) {
+                currentRoot.setLeftChild(nodeToAdd);
+            } else {
+                sortIntoSubTree(currentRoot.getLeftChild(), nodeToAdd);
+            }
+        } else {
+            if (currentRoot.getRightChild() == null) {
+                currentRoot.setRightChild(nodeToAdd);
+            } else {
+                sortIntoSubTree(currentRoot.getRightChild(), nodeToAdd);
+            }
+        }
+    }
 }
